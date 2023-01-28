@@ -204,16 +204,17 @@ def choose_best_sampled_group(sample_score_dict):
 # Read and write history of groupings as picked object
 ########################################################################################
 
-def write_history(history):
+def write_history(history, location):
     """ 
     Description:
         Write history as pickled object
     Args:
         history (dict of datetime.date: frozenset(frozenset)):  
             the history of past groups
+        location (str): where to write data 
     Returns: None
     """
-    with open('data/history.pickle', 'wb') as handle:
+    with open(location, 'wb') as handle:
         pickle.dump(history, handle, protocol=pickle.HIGHEST_PROTOCOL)
     handle.close()
 
@@ -239,6 +240,9 @@ if __name__=="__main__":
     teams = {"Team 1": ["Denis", "Mohar", "Jie", "Cody"]}
 
     history = read_history()
+    # save a backup in case something goes wrong
+    write_history(history, "data/backup_history.pickle")
+
     print(f"History # entries before update: {len(history)}")
 
 
@@ -254,7 +258,7 @@ if __name__=="__main__":
 
     history[date.today()] = final_group
 
-    write_history(history)
+    write_history(history, "data/history.pickle")
     print(f"History # entries after update: {len(history)}")
     print("\n")
     print(f"most recent group: {final_group}")
