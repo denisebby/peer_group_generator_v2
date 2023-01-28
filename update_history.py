@@ -9,6 +9,8 @@ from collections import OrderedDict, defaultdict
 import logging
 import logging.handlers
 
+import os
+
 ########################################################################################
 # Set up logging
 ########################################################################################
@@ -123,7 +125,7 @@ def choose_group_splits(num_people)->dict:
 def generate_random_groups(people, pairs_so_far, n=1000) -> Tuple[dict, defaultdict]:
     """
     Description:
-        Generate n samples of random groupings and keep track of the score. 
+        Generate n random samples of groupings and keep track of the score. 
         This function also outputs a default dictionary that keeps track of the 
         frequency of the groupings occuring in the random sample
 
