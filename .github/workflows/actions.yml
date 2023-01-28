@@ -2,8 +2,7 @@ name: run update_history.py
 
 on:
   schedule:
-    - cron: '0 6 * * Mon expr `date +\%W` \% 2 > /dev/null || /scripts/fortnightly.sh
-' # every 2 min
+    - cron: '0 6 * * Mon expr `date +\%s` / 604800 \% 2 >/dev/null || /scripts/fortnightly.sh' # every 2 min
 
 jobs:
   build:
