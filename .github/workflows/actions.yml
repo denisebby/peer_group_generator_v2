@@ -25,7 +25,7 @@ jobs:
       - name: execute py script # run main.py
         env:
           MY_SECRET: ${{ secrets.MY_SECRET }}
-        run: python ../upgrade_history.py
+        run: python update_history.py
           
       - name: commit files
         run: |
