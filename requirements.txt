@@ -1,2 +1,2 @@
 pymsteams==0.2.2
-yaml==6.0
+PyYAML==5.3.1
