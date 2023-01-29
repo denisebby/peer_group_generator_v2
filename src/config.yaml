@@ -1,0 +1,3 @@
+people: ["Bridget", "Bud", "Carly", "Cody", "Denis", "Eunice", "Jie", "Jonathan", "Kelly", "Kirtiraj", "Kyle B.", "Kyle C.", "Mohar", "Piyush", "Stan"]
+teams: {"Team 1": ["Denis", "Mohar", "Jie", "Cody"]}
+webhook_url: ""

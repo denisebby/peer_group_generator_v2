@@ -27,7 +27,14 @@ jobs:
       - name: execute py script # run main.py
         env:
           MY_SECRET: ${{ secrets.MY_SECRET }}
-        run: python update_history.py
+        run: python src/update_history.py
+      
+      - name: execute py notification script  # run main.py
+        env:
+          MY_SECRET: ${{ secrets.MY_SECRET }}
+          PEER_GROUP_WEBHOOK_URL: ${{ secrets.}}
+        run: python src/send_teams_notification.py
+          
           
       - name: commit files
         run: |

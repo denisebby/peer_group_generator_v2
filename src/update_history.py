@@ -10,6 +10,7 @@ import logging
 import logging.handlers
 
 import os
+import yaml
 
 ########################################################################################
 # Set up logging
@@ -234,14 +235,23 @@ def read_history(location)->dict:
 if __name__=="__main__":
 
     run_status = read_history("data/run_status.pickle")
+    # flip run status, we do this to run only every other week
+    # cron job syntax for every other week is complicated
     write_history(not run_status, "data/run_status.pickle")
     if run_status:
        
+        with open("config.yaml") as f:
+            config = yaml.safe_load(f)
+        f.close()
+
+        people = config["people"]
+        teams = config["teams"]
+
         # input params
         # TODO: paramaterize this as people come and go and teams change
-        people = ["Bridget", "Bud", "Carly", "Cody", "Denis", "Eunice", "Jie", "Jonathan", 
-                    "Kelly", "Kirtiraj", "Kyle B.", "Kyle C.", "Mohar", "Piyush", "Stan"]
-        teams = {"Team 1": ["Denis", "Mohar", "Jie", "Cody"]}
+        # people = ["Bridget", "Bud", "Carly", "Cody", "Denis", "Eunice", "Jie", "Jonathan", 
+        #             "Kelly", "Kirtiraj", "Kyle B.", "Kyle C.", "Mohar", "Piyush", "Stan"]
+        # teams = {"Team 1": ["Denis", "Mohar", "Jie", "Cody"]}
 
         history = read_history()
         # save a backup in case something goes wrong

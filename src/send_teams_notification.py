@@ -43,7 +43,7 @@ if __name__=="__main__":
     msteams_notifications = pymsteams.connetorcard(webhook_url)
     # sky blue color
     msteams_notifications.color("#87CEEB")
-    title = f"Peer Groups for {date}"
+    title = f"Peer Groups for {date}!:"
     message = f"""{readable_group}"""
     msteams_notifications.text(message)
     msteams_notifications.title(title)
