@@ -253,7 +253,7 @@ if __name__=="__main__":
         #             "Kelly", "Kirtiraj", "Kyle B.", "Kyle C.", "Mohar", "Piyush", "Stan"]
         # teams = {"Team 1": ["Denis", "Mohar", "Jie", "Cody"]}
 
-        history = read_history()
+        history = read_history("data/history.pickle")
         # save a backup in case something goes wrong
         write_history(history, "data/backup_history.pickle")
 
