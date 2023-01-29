@@ -240,7 +240,7 @@ if __name__=="__main__":
     write_history(not run_status, "data/run_status.pickle")
     if run_status:
        
-        with open("config.yaml") as f:
+        with open("src/config.yaml") as f:
             config = yaml.safe_load(f)
         f.close()
 
