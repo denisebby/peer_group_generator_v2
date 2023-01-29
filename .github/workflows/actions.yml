@@ -2,7 +2,9 @@ name: run update_history.py
 
 on:
   schedule:
-    - cron: '0 6 * * Mon expr `date +\%s` / 604800 \% 2 >/dev/null || /scripts/fortnightly.sh' # every 2 min
+    # hard to find cron syntax to do every other week
+    - cron: '0 5 * * MON' # every monday at 5 AM
+  workflow_dispatch:
 
 jobs:
   build:

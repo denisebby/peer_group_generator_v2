@@ -204,68 +204,76 @@ def choose_best_sampled_group(sample_score_dict):
 # Read and write history of groupings as picked object
 ########################################################################################
 
-def write_history(history, location):
+def write_history(object_to_save, location):
     """ 
     Description:
-        Write history as pickled object
+        Write object as pickled object
     Args:
-        history (dict of datetime.date: frozenset(frozenset)):  
-            the history of past groups
+        object_to_save (any Python object): an object to save
         location (str): where to write data 
     Returns: None
     """
     with open(location, 'wb') as handle:
-        pickle.dump(history, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        pickle.dump(object_to_save, handle, protocol=pickle.HIGHEST_PROTOCOL)
     handle.close()
 
-def read_history()->dict:
+def read_history(location)->dict:
     """
     Description:
-        Read history from pickled object
+        Read object from pickled object
     Args:
+        location (str): where to read data 
     Returns: 
-        history (dict of datetime.date: frozenset(frozenset)): the history of past groups
+        saved_object (any Python object): an object to save
     """
-    with open('data/history.pickle', 'rb') as handle:
-        history = pickle.load(handle)
+    with open(location, 'rb') as handle:
+        saved_object = pickle.load(handle)
     handle.close()
-    return history
+    return saved_object
 
 if __name__=="__main__":
 
-    # input params
-    # TODO: paramaterize this as people come and go and teams change
-    people = ["Bridget", "Bud", "Carly", "Cody", "Denis", "Eunice", "Jie", "Jonathan", 
-                "Kelly", "Kirtiraj", "Kyle B.", "Kyle C.", "Mohar", "Piyush", "Stan"]
-    teams = {"Team 1": ["Denis", "Mohar", "Jie", "Cody"]}
+    run_status = read_history("data/run_status.pickle")
+    write_history(not run_status, "data/run_status.pickle")
+    if run_status:
+       
+        # input params
+        # TODO: paramaterize this as people come and go and teams change
+        people = ["Bridget", "Bud", "Carly", "Cody", "Denis", "Eunice", "Jie", "Jonathan", 
+                    "Kelly", "Kirtiraj", "Kyle B.", "Kyle C.", "Mohar", "Piyush", "Stan"]
+        teams = {"Team 1": ["Denis", "Mohar", "Jie", "Cody"]}
 
-    history = read_history()
-    # save a backup in case something goes wrong
-    write_history(history, "data/backup_history.pickle")
+        history = read_history()
+        # save a backup in case something goes wrong
+        write_history(history, "data/backup_history.pickle")
 
-    print(f"History # entries before update: {len(history)}")
+        print(f"History # entries before update: {len(history)}")
 
 
-    pairs_so_far = get_pairs_so_far(history, teams)
+        pairs_so_far = get_pairs_so_far(history, teams)
 
-    scores_dict, freq = generate_random_groups(
-                            people = people, 
-                            pairs_so_far = pairs_so_far,
-                            n = 1000
-                        )
+        scores_dict, freq = generate_random_groups(
+                                people = people, 
+                                pairs_so_far = pairs_so_far,
+                                n = 1000
+                            )
 
-    final_group = choose_best_sampled_group(sample_score_dict = scores_dict)
+        final_group = choose_best_sampled_group(sample_score_dict = scores_dict)
 
-    history[date.today()] = final_group
+        history[date.today()] = final_group
 
-    write_history(history, "data/history.pickle")
-    print(f"History # entries after update: {len(history)}")
-    print("\n")
-    print(f"most recent group: {final_group}")
+        write_history(history, "data/history.pickle")
+        print(f"History # entries after update: {len(history)}")
+        print("\n")
+        print(f"most recent group: {final_group}")
 
-    # We don't really use this secret, just seeing how it works
-    logger.info(f"SECRET:{MY_SECRET}")
-    logger.info(f"New group!: {final_group}")
+        # We don't really use this secret, just seeing how it works
+        logger.info(f"SECRET:{MY_SECRET}")
+        logger.info(f"New group!: {final_group}")
+    else:
+        logger.info(f"SECRET:{MY_SECRET}")
+        logger.info(f"Skipped this week")
+
 
 
 
