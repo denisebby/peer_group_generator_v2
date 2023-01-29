@@ -1,0 +1,2 @@
+2023-01-28 21:23:52,581 - __main__ - INFO - SECRET:PIZZA
+2023-01-28 21:23:52,581 - __main__ - INFO - New group!: frozenset({frozenset({'Carly', 'Piyush', 'Bud'}), frozenset({'Bridget', 'Jonathan', 'Denis'}), frozenset({'Eunice', 'Kyle B.', 'Kirtiraj'}), frozenset({'Mohar', 'Kyle C.', 'Cody'}), frozenset({'Kelly', 'Jie', 'Stan'})})
