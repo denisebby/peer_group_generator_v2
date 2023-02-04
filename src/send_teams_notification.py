@@ -4,6 +4,8 @@ import pickle
 import os
 from dateutil.relativedelta import relativedelta, FR
 
+import yaml 
+
 def convert_from_fz_to_str(g):
     """ 
     Description: convert from frozenset(frozenset) to readable string
@@ -11,7 +13,7 @@ def convert_from_fz_to_str(g):
     res = ""
     for elem in list(g):
         res += ",".join(list(elem))
-        res += "; "
+        res += ";\n"
     return res
 
 def read_history(location)->dict:
@@ -39,8 +41,13 @@ if __name__=="__main__":
     readable_group = convert_from_fz_to_str(most_recent_group)
     date = " to ".join([str(x) for x in newlist])
 
-    webhook_url = os.environ["PEER_GROUP_WEBHOOK_URL"]
-    msteams_notifications = pymsteams.connetorcard(webhook_url)
+    with open("src/config.yaml") as f:
+        config = yaml.safe_load(f)
+    f.close()
+
+    webhook_url = config["webhook_url"]
+    msteams_notifications = pymsteams.connectorcard(webhook_url)
+
     # sky blue color
     msteams_notifications.color("#87CEEB")
     title = f"Peer Groups for {date}!:"
